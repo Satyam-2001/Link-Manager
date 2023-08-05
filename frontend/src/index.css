@@ -40,3 +40,25 @@ body,
 .button-type-fullscreen {
   display: none !important
 }
+
+a {
+  font-family: Poppins, sans-serif;
+  color: white;
+  text-decoration: none;
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, #4ca5ff 2.34%, #b673f8 100.78%);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+}
+
+.react-reveal, .css-1arvn2p-MuiStack-root {
+  margin: 0;
+}
+
+@media screen and (max-width: 601px) {
+  html {
+    font-size: 10px;
+  }
+}

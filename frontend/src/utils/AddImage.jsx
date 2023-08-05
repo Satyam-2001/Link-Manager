@@ -46,7 +46,7 @@ const AddImage = ({ imageLink, setImageLink }) => {
 
     const removeFileHandler = () => {
         if (imageLink) {
-            deleteMedia(imageLink)
+            // deleteMedia(imageLink)
         }
         setImageLink(undefined)
         removeFile()

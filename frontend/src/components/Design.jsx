@@ -3,7 +3,7 @@ import { Box, Button, ButtonGroup, IconButton, Paper, Stack, ToggleButton, Toggl
 import { tokens } from "../theme";
 import { borderTop } from "@mui/system";
 import { useDispatch, useSelector } from "react-redux";
-import { designActions } from "../store/design-slice";
+import { designActions, saveDesign } from "../store/design-slice";
 import Header from './Header'
 import Footer from "./Footer";
 import Theme from "./Theme";
@@ -15,7 +15,7 @@ const Design = () => {
     const colors = tokens(theme.palette.mode);
 
     const dispatch = useDispatch()
-    const { tab } = useSelector(state => state.design)
+    const { tab, current_design } = useSelector(state => state.design)
 
     const buttonStyle = {
         color: theme.palette.action.active,
@@ -24,6 +24,14 @@ const Design = () => {
 
     const switchDesignScreenHandler = (value) => {
         dispatch(designActions.switchTab(value))
+    }
+
+    const resetDesignHandler = () => {
+        dispatch(designActions.resetDesgin())
+    }
+
+    const saveDesignHandler = () => {
+        dispatch(saveDesign(current_design))
     }
 
     const designScreens = ['Header', 'Footer', 'Theme']
@@ -48,16 +56,19 @@ const Design = () => {
                     {tab === 'Footer' && <Footer />}
                     {tab === 'Theme' && <Theme />}
                 </Box>
-                <Box width='60%'>
+                <Box width='60%' overflow={'auto'}>
                     <Application />
                 </Box>
             </Stack>
             <Paper elevation={2}>
                 <Stack direction='row' justifyContent='flex-end' gap={1} p={1}>
-                    <Button variant="outlined">
+                    <Button
+                        variant="outlined"
+                        onClick={resetDesignHandler}>
                         Reset
                     </Button>
                     <Button
+                        onClick={saveDesignHandler}
                         variant="contined"
                         sx={{
                             color: 'white',

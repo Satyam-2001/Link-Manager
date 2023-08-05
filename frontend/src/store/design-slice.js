@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { callAPI } from '../services/callAPI';
+import { useSelector } from 'react-redux';
 
 const defaultDesign = {
     header_body: "",
@@ -31,7 +32,7 @@ const designSlice = createSlice({
             state.original_design = state.current_design
         },
         updateDesign(state, action) {
-            state.current_design = action.payload
+            state.current_design = { ...state.current_design, ...action.payload }
         },
         switchTab(state, action) {
             state.tab = action.payload
@@ -54,7 +55,7 @@ export const getDesign = () => {
 export const saveDesign = (design) => {
     return async (dispatch) => {
         try {
-            await callAPI('post', 'design')
+            await callAPI('post', 'design', design)
             dispatch(designActions.saveDesign(design))
         } catch {
         }

@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { getCourseData } from "./store/course-slice";
 import { useEffect } from "react";
 import Application from '../src/root/index'
+import { getDesign } from "./store/design-slice";
 
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
@@ -55,6 +56,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getCourseData())
+    dispatch(getDesign())
   }, [])
 
   return (

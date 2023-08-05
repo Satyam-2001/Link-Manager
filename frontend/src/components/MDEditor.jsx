@@ -12,29 +12,21 @@ import { tokens } from "../theme";
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
 
-const MDEditor = () => {
+const MDEditor = ({ value, setValue }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-    const [content, setContent] = useState('')
-
-    // useEffect(() => {
-    //     const getData = async () => {
-    //         return await axios.get('/api/home')
-    //     }
-    //     getData().then((data) => {
-    //         setContent(data.data);
-    //     })
-    // }, [])
 
     function handleEditorChange({ html, text }) {
-        setContent(text)
+        setValue(text)
     }
+
+    console.log(mdParser.render('# Installation\n\nThis module is installed via npm:\n```shellnpm install react-upload-media```'))
 
     return (
         <Box flex={1} overflow={'auto'} >
             <MdEditor
                 style={{ height: '100%', minHeight: '250px' }}
-                value={content}
+                value={value}
                 renderHTML={text => mdParser.render(text)}
                 onChange={handleEditorChange}
                 view={{ html: true, md: true }}

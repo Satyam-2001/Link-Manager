@@ -5,10 +5,11 @@ const Design = require("../models/Design")
 
 router.get('/design', async (req, res) => {
     try {
-        const designs = await Course.find({})
+        const designs = await Design.find({})
         res.status(200).send(designs[0])
     }
     catch (e) {
+        console.log(e)
         res.status(400).send(e)
     }
 })
