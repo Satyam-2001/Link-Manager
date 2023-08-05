@@ -1,4 +1,4 @@
-// require("./db/mongoose")
+require("./db/mongoose")
 const express = require("express")
 const cors = require('cors');
 const courseRouter = require("./routers/course")
