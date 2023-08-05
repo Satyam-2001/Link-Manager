@@ -14,9 +14,11 @@ const courseSlice = createSlice({
         setFields(state, action) {
             state.status = action.payload.status
             state.courses = action.payload.courses
+            state.courses.sort((a, b) => a.index - b.index)
         },
         addCourse(state, action) {
             state.courses.push(action.payload)
+            state.courses.sort((a, b) => a.index - b.index)
         },
         editCourse(state, action) {
             const index = state.courses.findIndex((course) => course._id === action.payload._id)
@@ -27,6 +29,22 @@ const courseSlice = createSlice({
         },
         removeCourse(state, action) {
             state.courses = state.courses.filter((course) => course._id !== action.payload)
+        },
+        orderUpCourse(state, action) {
+            const index = state.courses.findIndex((course) => course._id === action.payload)
+            if (index == 0) { return; }
+            const temp = state.courses[index];
+            state.courses[index] = state.courses[index - 1]
+            state.courses[index - 1] = temp;
+            state.courses[index].index = index
+            state.courses[index - 1].index = index - 1
+        },
+        orderDownCourse(state, action) {
+            const index = state.courses.findIndex((course) => course._id === action.payload)
+            if (index == state.courses.length - 1) { return; }
+            const temp = state.courses[index];
+            state.courses[index] = state.courses[index + 1]
+            state.courses[index + 1] = temp;
         }
     },
 });
@@ -78,6 +96,28 @@ export const editCourse = (course) => {
             dispatch(courseModalActions.closeModal())
         } catch {
             dispatch(courseModalActions.setStatus('error'))
+        }
+    }
+}
+
+export const orderUpCourse = (courseId) => {
+    return async (dispatch) => {
+        try {
+            dispatch(courseActions.orderUpCourse(courseId))
+            await callAPI('post', 'orderup', { id: courseId })
+        } catch (e) {
+
+        }
+    }
+}
+
+export const orderDownCourse = (courseId) => {
+    return async (dispatch) => {
+        try {
+            dispatch(courseActions.orderDownCourse(courseId))
+            await callAPI('post', 'orderdown', { id: courseId })
+        } catch (e) {
+
         }
     }
 }

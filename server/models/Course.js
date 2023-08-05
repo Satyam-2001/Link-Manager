@@ -24,6 +24,10 @@ const courseSchema = new mongoose.Schema({
     image: {
         type: String,
     },
+    index: {
+        type: Number,
+        required: true,
+    }
 }, {
     timestamps: true
 })

@@ -10,11 +10,13 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import { useSelector, useDispatch } from 'react-redux'
-import { removeCourse } from '../../store/course-slice'
+import { orderDownCourse, orderUpCourse, removeCourse } from '../../store/course-slice'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import ImageIcon from '@mui/icons-material/Image';
 import { courseModalActions } from "../../store/course_modal-slice";
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
 const Message = ({ message, icon }) => {
     const theme = useTheme();
@@ -82,14 +84,22 @@ const CourseCard = ({ course }) => {
         dispatch(courseModalActions.editCourse(course))
     }
 
+    const orderUpHandler = () => {
+        dispatch(orderUpCourse(course._id))
+    }
+
+    const orderDownHandler = () => {
+        dispatch(orderDownCourse(course._id))
+    }
+
     return (
         <Fragment>
             <Accordion
                 expanded={expanded}
-                onChange={() => setExpanded(prop => !prop)}
+                // onChange={() => setExpanded(prop => !prop)}
                 sx={{ backgroundColor: colors.primary[500], margin: '0 0 6px 0' }}>
                 <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
+                    expandIcon={<IconButton onClick={() => setExpanded(prop => !prop)}><ExpandMoreIcon /></IconButton>}
                     aria-controls="panel1bh-content"
                     id="panel1bh-header">
                     <Stack
@@ -99,7 +109,7 @@ const CourseCard = ({ course }) => {
                         <Box width={'70px'} height={'55px'} display={'flex'} alignItems={'center'} justifyContent={'center'} >
                             {course.image ? <img src={course.image} style={{ maxHeight: '100%', maxWidth: '100%', borderRadius: '3px' }} /> : <DummyImage />}
                         </Box>
-                        <Stack direction={'row'} justifyContent={'space-between'} flexGrow={1} width='80%'>
+                        <Stack direction={'row'} justifyContent={'space-between'} flexGrow={1}>
                             <Stack px={3} flexGrow={1}>
                                 <Typography gutterBottom variant="h5" component="div">
                                     {course.title}
@@ -109,13 +119,19 @@ const CourseCard = ({ course }) => {
                                 </Typography>
                             </Stack>
                             <Stack direction={'row'} justifyContent={'flex-end'} px={2} gap={1}>
-                                <IconButton onClick={openLinkHandler} sx={{ aspectRatio: '1/1' }}>
+                                <IconButton onClick={orderUpHandler} >
+                                    <ArrowUpwardIcon sx={{ color: theme.palette.primary.main }} />
+                                </IconButton>
+                                <IconButton onClick={orderDownHandler} >
+                                    <ArrowDownwardIcon sx={{ color: theme.palette.primary.main }} />
+                                </IconButton>
+                                <IconButton onClick={openLinkHandler} >
                                     <OpenInNewIcon sx={{ color: theme.palette.primary.main }} />
                                 </IconButton>
-                                <IconButton onClick={openEditModal} sx={{ aspectRatio: '1/1' }}>
+                                <IconButton onClick={openEditModal} >
                                     <EditOutlinedIcon sx={{ color: theme.palette.primary.main }} />
                                 </IconButton>
-                                <IconButton onClick={removeCourseHandler} sx={{ aspectRatio: '1/1' }}>
+                                <IconButton onClick={removeCourseHandler} >
                                     <DeleteOutlinedIcon sx={{ color: theme.palette.primary.main }} />
                                 </IconButton>
                             </Stack>
