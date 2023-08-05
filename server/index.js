@@ -19,7 +19,7 @@ app.get('/call', (req, res) => {
     res.send({ msg: 'done' })
 })
 
-const url = 'http://localhost:3000'
+const url = 'https://link-manager-9p5o.onrender.com'
 
 setInterval(() => {
     try {
