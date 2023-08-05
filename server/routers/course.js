@@ -1,6 +1,4 @@
 const express = require('express')
-const multer = require('multer')
-const sharp = require('sharp')
 const router = new express.Router()
 const Course = require("../models/Course")
 

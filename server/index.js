@@ -12,6 +12,14 @@ app.use(express.json())
 app.use(courseRouter)
 app.use(designRouter)
 
+app.get('/call', (req, res) => {
+    res.send('done')
+})
+
+setTimeout(() => {
+    fetch('https://link-manager-9p5o.onrender.com').then().catch()
+}, 5000)
+
 app.listen(port, () => {
     console.log(`Server is running on ${port}`)
 })

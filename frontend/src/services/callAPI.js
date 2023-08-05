@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:3000'
+const BASE_URL = 'https://link-manager-9p5o.onrender.com'
 
 export async function callAPI(method, route, data) {
     const response = await axios({

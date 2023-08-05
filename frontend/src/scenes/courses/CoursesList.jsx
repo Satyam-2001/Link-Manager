@@ -99,26 +99,26 @@ const CourseCard = ({ course }) => {
                         <Box width={'70px'} height={'55px'} display={'flex'} alignItems={'center'} justifyContent={'center'} >
                             {course.image ? <img src={course.image} style={{ maxHeight: '100%', maxWidth: '100%', borderRadius: '3px' }} /> : <DummyImage />}
                         </Box>
-
-                        <Stack ml={1}>
-                            <Typography gutterBottom variant="h5" component="div">
-                                {course.title}
-                            </Typography>
-                            <Typography variant="body2" color="text.secondary">
-                                {course.url}
-                            </Typography>
-                        </Stack>
-
-                        <Stack direction={'row'} flexGrow={1} justifyContent={'flex-end'} mx={2}>
-                            <IconButton onClick={openLinkHandler} sx={{ aspectRatio: '1/1' }}>
-                                <OpenInNewIcon sx={{ color: theme.palette.primary.main }} />
-                            </IconButton>
-                            <IconButton onClick={openEditModal} sx={{ aspectRatio: '1/1' }}>
-                                <EditOutlinedIcon sx={{ color: theme.palette.primary.main }} />
-                            </IconButton>
-                            <IconButton onClick={removeCourseHandler} sx={{ aspectRatio: '1/1' }}>
-                                <DeleteOutlinedIcon sx={{ color: theme.palette.primary.main }} />
-                            </IconButton>
+                        <Stack direction={'row'} justifyContent={'space-between'} flexGrow={1} width='80%'>
+                            <Stack px={3} flexGrow={1}>
+                                <Typography gutterBottom variant="h5" component="div">
+                                    {course.title}
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                    {course.url}
+                                </Typography>
+                            </Stack>
+                            <Stack direction={'row'} justifyContent={'flex-end'} px={2} gap={1}>
+                                <IconButton onClick={openLinkHandler} sx={{ aspectRatio: '1/1' }}>
+                                    <OpenInNewIcon sx={{ color: theme.palette.primary.main }} />
+                                </IconButton>
+                                <IconButton onClick={openEditModal} sx={{ aspectRatio: '1/1' }}>
+                                    <EditOutlinedIcon sx={{ color: theme.palette.primary.main }} />
+                                </IconButton>
+                                <IconButton onClick={removeCourseHandler} sx={{ aspectRatio: '1/1' }}>
+                                    <DeleteOutlinedIcon sx={{ color: theme.palette.primary.main }} />
+                                </IconButton>
+                            </Stack>
                         </Stack>
                     </Stack >
                 </AccordionSummary>

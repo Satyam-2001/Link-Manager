@@ -57,7 +57,13 @@ a {
   margin: 0;
 }
 
-@media screen and (max-width: 601px) {
+@media screen and (max-width: 600px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 320px) {
   html {
     font-size: 10px;
   }

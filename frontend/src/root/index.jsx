@@ -12,6 +12,7 @@ import CardMedia from '@mui/material/CardMedia';
 import ReactCardFlip from 'react-card-flip';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { tokens } from "../theme";
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
@@ -84,6 +85,68 @@ const CustomCard = ({ course }) => {
     )
 }
 
+const Layout = (props) => {
+    let { background_color, text_color, footer_body, header_image, header_body } = useSelector(state => state.design.current_design)
+
+    background_color = background_color === '' ? 'rgb(14, 14, 14)' : background_color;
+    const [anchorEl, setAnchorEl] = useState(null);
+
+    const openPopOver = Boolean(anchorEl)
+
+    return (
+        <Box minHeight={'100%'} display='flex' flexDirection='column' justifyContent='center' sx={{ backgroundColor: background_color, width: '100%' }} overflow='auto'>
+            <Box width='100%' display='flex' justifyContent={'space-between'} color={text_color} sx={{ zIndex: 5, backgroundColor: background_color, top: 0, px: { xs: 4, md: 8 }, py: { xs: 4, md: 3 } }}>
+                <img src={require('../assets/logo.png')} width='35px' height='35px' />
+                <Box display='flex' justifyContent='center' flexDirection={'row'} alignItems='center'>
+                    <a href='#courses'>
+                        <Typography fontSize={'1.2rem'} fontFamily='Poppins,sans-serif' >Courses</Typography>
+                    </a>
+                    {/* <Button variant="text" endIcon={<ExpandMoreIcon />} onClick={handleClick} sx={{ color: text_color, textTransform: 'none' }}>
+                        <Typography fontSize={'1.2rem'} fontFamily='Poppins,sans-serif' >More</Typography>
+                    </Button> */}
+                    <Popover
+                        open={openPopOver}
+                        anchorEl={anchorEl}
+                        onClose={() => setAnchorEl(undefined)}
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'right',
+                        }}
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        sx={{ color: 'rgb(22,27,34)' }}
+                        PaperProps={{ sx: { backgroundColor: 'transparent' } }}
+                    >
+                        <Stack sx={{ backgroundColor: 'rgb(22,27,34)', borderRadius: '0.5rem' }} p={2} gap={1}>
+                            <Stack direction={'row'} alignItems='center' gap={1}>
+                                <img src={'https://www.jsmastery.pro/_next/static/media/YouTube-gradient.86b2223b.svg'} height={20} />
+                                <Button
+                                    variant='text'
+                                    sx={{ textTransform: 'none', color: 'rgb(200, 200, 200)', fontSize: '0.9rem', letterSpacing: '0.01rem', display: 'flex', justifyContent: 'space-between' }}>
+                                    Useful Youtube Videos
+                                </Button>
+                            </Stack>
+                            <Stack direction={'row'} alignItems='center' gap={2}>
+                                <img src={'https://www.jsmastery.pro/_next/static/media/guides.6def5cfb.svg'} height={25} />
+                                <Button
+                                    variant='text'
+                                    sx={{ textTransform: 'none', color: 'rgb(200, 200, 200)', fontSize: '0.9rem', letterSpacing: '0.01rem', display: 'flex', justifyContent: 'space-between' }}>
+                                    Free Resources and Guide
+                                </Button>
+                            </Stack>
+                        </Stack>
+                    </Popover>
+                </Box>
+            </Box>
+            <Stack display='flex' justifyContent={'center'} alignItems={'center'} flexGrow={1} overflow='auto'>
+                {props.children}
+            </Stack>
+        </Box >
+    )
+}
+
 
 const Application = (props) => {
 
@@ -95,12 +158,85 @@ const Application = (props) => {
 
     const [anchorEl, setAnchorEl] = useState(null);
 
-
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
 
     const openPopOver = Boolean(anchorEl)
+
+    if (status === 'loading') {
+        return <Layout>
+            <CircularProgress sx={{ color: 'rgb(200, 200, 200)' }} />
+        </Layout>
+    }
+
+    return (
+        <Layout>
+            <Stack overflow='auto'>
+                <Box display={'flex'} width='100%' flexDirection='row' sx ={{px: {xs: 3, md: 8}}} >
+                    <Stack sx={{ width: { xs: '100%', md: '50%' } }} >
+                        <Fade left cascade>
+                            <Stack>
+                                <Typography variant='h1' color={text_color} fontWeight={700} fontSize={'5rem'} m={0}>
+                                    Boost Your
+                                    <br class="sm:block hidden" />
+                                    Career With
+                                    <br class="sm:block hidden" />
+                                    <span class="text-gradient">Analog-Based</span>
+                                    <br />
+                                    Coaching
+                                </Typography>
+                                <Typography color={text_color} fontSize={'1.2rem'} my={2}>
+                                    Showcase your skills with practical development experience and land the coding career of your dreams
+                                </Typography>
+                                <Button variant='contained' sx={{ width: 200, fontSize: '16px' }} >
+                                    <a href='#courses'>
+                                        Explore Courses
+                                    </a>
+                                </Button>
+                            </Stack>
+                        </Fade>
+                    </Stack>
+                    {/* </Fade> */}
+                    <Stack width='50%' height='80vh' sx={{ display: { xs: 'none', md: 'flex' } }}>
+                        <Fade right>
+                            <img src={header_image} height={'100%'} style={{ objectFit: 'contain' }} />
+                        </Fade>
+                    </Stack>
+                </Box>
+
+                <Fade bottom>
+                    <Box color={text_color} py={2} sx ={{px: {xs: 3, md: 8}}} fontSize={'1rem'}>
+                        <ReactMarkdown>{header_body}</ReactMarkdown>
+                    </Box>
+                </Fade>
+                <Box id='courses' display='flex' flexDirection={'column'} justifyContent={'center'} mt={4}>
+                    <Fade bottom>
+                        <Typography variant='h1' color={text_color} fontWeight={700} fontSize={'3rem'} textAlign='center'>
+                            Comprehensice <span class="text-gradient">Courses</span><br />to Help You Become a <span class="text-gradient">Analog Engineer</span>
+                        </Typography>
+                    </Fade>
+                    <Grid container justifyContent={'center'} spacing={8} p={8}>
+                        {courses.map((course, index) => {
+                            return (
+                                <Grid item xs={12} md={6} justifyContent={'center'} >
+                                    <Fade left={(index & 1) === 0} right={index & 1}>
+                                        <CustomCard course={course} />
+                                    </Fade>
+                                </Grid>
+                            )
+                        })}
+                    </Grid>
+                </Box>
+                <Box color={text_color} px={2} py={1} fontSize={'1rem'} sx={{ backgroundColor: 'rgb(22,27,34)', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+                    <ReactMarkdown>{footer_body}</ReactMarkdown>
+                    <Box dispay='flex' flexDirection='row' justifyContent='flex-end' alignItems='center' >
+                        Developed By <a href='https://www.linkedin.com/in/satyam-lohiya-536879229/' target={'_blank'} style={{ color: theme.palette.primary.main }}>Satyam Lohiya</a>
+                    </Box>
+                </Box>
+            </Stack>
+        </Layout>
+    )
 
     return (
         <Box minHeight={'100%'} display='flex' flexDirection='column' justifyContent='center' sx={{ backgroundColor: background_color, width: '100%' }} overflow='auto'>
