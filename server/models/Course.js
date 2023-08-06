@@ -14,12 +14,7 @@ const courseSchema = new mongoose.Schema({
     url: {
         type: String,
         required: true,
-        trim: true,
-        validate(value) {
-            if (!value.includes('.')) {
-                throw new Error(`URL is invalid!`)
-            }
-        }
+        trim: true
     },
     image: {
         type: String,

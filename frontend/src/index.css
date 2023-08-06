@@ -56,10 +56,23 @@ a {
 .react-reveal, .css-1arvn2p-MuiStack-root {
   margin: 0;
 }
+/* 
+html, body,
+#root,
+.app,
+.content, div {
+  font-size: inherit;
+} */
 
 @media screen and (max-width: 600px) {
   html {
     font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  html {
+    font-size: 12px;
   }
 }
 

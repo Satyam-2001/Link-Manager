@@ -2,6 +2,7 @@ const express = require('express')
 const router = new express.Router()
 const Course = require("../models/Course")
 
+const props = ['title', 'description', 'url', 'image']
 
 router.get('/course', async (req, res) => {
     try {
@@ -30,15 +31,17 @@ router.post('/course', async (req, res) => {
 router.post('/orderup', async (req, res) => {
     try {
         const course_1 = await Course.findOne({ _id: req.body.id })
-        const index = course_1._doc.index
-        if (index === 0) return;
+        const index = course_1.index
+        if (index === 0) return res.send();
         const course_2 = await Course.findOne({ index: index - 1 })
-        const c1 = { ...course_1._doc }
-        const c2 = { ...course_2._doc }
-        delete c1._id
-        delete c2._id
-        await Course.replaceOne({ _id: course_1._doc._id }, { ...c1, index: index - 1 })
-        await Course.replaceOne({ _id: course_2._doc._id }, { ...c2, index })
+        const c1 = {}
+        const c2 = {}
+        for (let key of props) {
+            c1[key] = course_1[key];
+            c2[key] = course_2[key];
+        }
+        await Course.replaceOne({ _id: course_1._id }, { ...c1, index: index - 1 })
+        await Course.replaceOne({ _id: course_2._id }, { ...c2, index })
         res.send()
     } catch (e) {
         console.log(e)
@@ -49,15 +52,17 @@ router.post('/orderup', async (req, res) => {
 router.post('/orderdown', async (req, res) => {
     try {
         const course_1 = await Course.findOne({ _id: req.body.id })
-        const index = course_1._doc.index
+        const index = course_1.index
         const course_2 = await Course.findOne({ index: index + 1 })
-        if (!course_2) return;
-        const c1 = { ...course_1._doc }
-        const c2 = { ...course_2._doc }
-        delete c1._id
-        delete c2._id
-        await Course.replaceOne({ _id: course_1._doc._id }, { ...c1, index: index + 1 })
-        await Course.replaceOne({ _id: course_2._doc._id }, { ...c2, index })
+        if (!course_2) return res.send();
+        const c1 = {}
+        const c2 = {}
+        for (let key of props) {
+            c1[key] = course_1[key];
+            c2[key] = course_2[key];
+        }
+        await Course.replaceOne({ _id: course_1._id }, { ...c1, index: index + 1 })
+        await Course.replaceOne({ _id: course_2._id }, { ...c2, index })
         res.send()
     } catch (e) {
         res.status(400).send(e)

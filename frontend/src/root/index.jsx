@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { Box, Button, Stack, Typography, CardActionArea, CardActions, Popover, useTheme } from "@mui/material";
 import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
+// import emarkGfm from 'emark-gfm'
 import Grid from '@mui/material/Grid';
 import MarkdownIt from 'markdown-it';
 import Fade from 'react-reveal/Fade';
@@ -66,7 +66,7 @@ const CustomCard = ({ course }) => {
                 sx={{
                     backgroundColor: 'rgb(22,27,34)',
                     color: 'white',
-                    borderRadius: '1rem',
+                    borderRadius: '1em',
                     height: '300px'
                 }}>
                 <CardActionArea>
@@ -88,7 +88,7 @@ const CustomCard = ({ course }) => {
                 sx={{
                     backgroundColor: 'rgb(22,27,34)',
                     color: 'white',
-                    borderRadius: '1rem',
+                    borderRadius: '1em',
                     height: '300px',
                     display: 'flex',
                     flexDirection: 'column',
@@ -101,7 +101,7 @@ const CustomCard = ({ course }) => {
                         <Typography gutterBottom variant="h3" component="div">
                             {course.title}
                         </Typography>
-                        <Typography variant="h4" color="rgb(240, 240, 240)" fontSize={'1rem'} >
+                        <Typography variant="h4" color="rgb(240, 240, 240)" fontSize={'1em'} >
                             {course.description}
                         </Typography>
                     </CardContent>
@@ -125,15 +125,15 @@ const Layout = (props) => {
     const openPopOver = Boolean(anchorEl)
 
     return (
-        <Box minHeight={'100%'} display='flex' flexDirection='column' justifyContent='center' sx={{ backgroundColor: background_color, width: '100%' }} overflow='auto'>
+        <Box minHeight={'100%'} display='flex' flexDirection='column' justifyContent='center' sx={{ backgroundColor: background_color, width: '100%', fontSize: { xs: '12px', sm: '14px', md: '16px' } }} overflow='auto'>
             <Box width='100%' display='flex' justifyContent={'space-between'} color={text_color} sx={{ zIndex: 5, backgroundColor: background_color, top: 0, px: { xs: 4, md: 8 }, py: { xs: 4, md: 3 } }}>
                 <img src={require('../assets/logo.png')} width='35px' height='35px' />
                 <Box display='flex' justifyContent='center' flexDirection={'row'} alignItems='center'>
                     <a href='#courses'>
-                        <Typography fontSize={'1.2rem'} fontFamily='Poppins,sans-serif' >Courses</Typography>
+                        <Typography fontSize={'1.2em'} fontFamily='Poppins,sans-serif' >Courses</Typography>
                     </a>
                     {/* <Button variant="text" endIcon={<ExpandMoreIcon />} onClick={handleClick} sx={{ color: text_color, textTransform: 'none' }}>
-                        <Typography fontSize={'1.2rem'} fontFamily='Poppins,sans-serif' >More</Typography>
+                        <Typography fontSize={'1.2em'} fontFamily='Poppins,sans-serif' >More</Typography>
                     </Button> */}
                     <Popover
                         open={openPopOver}
@@ -150,12 +150,12 @@ const Layout = (props) => {
                         sx={{ color: 'rgb(22,27,34)' }}
                         PaperProps={{ sx: { backgroundColor: 'transparent' } }}
                     >
-                        <Stack sx={{ backgroundColor: 'rgb(22,27,34)', borderRadius: '0.5rem' }} p={2} gap={1}>
+                        <Stack sx={{ backgroundColor: 'rgb(22,27,34)', borderRadius: '0.5em' }} p={2} gap={1}>
                             <Stack direction={'row'} alignItems='center' gap={1}>
                                 <img src={'https://www.jsmastery.pro/_next/static/media/YouTube-gradient.86b2223b.svg'} height={20} />
                                 <Button
                                     variant='text'
-                                    sx={{ textTransform: 'none', color: 'rgb(200, 200, 200)', fontSize: '0.9rem', letterSpacing: '0.01rem', display: 'flex', justifyContent: 'space-between' }}>
+                                    sx={{ textTransform: 'none', color: 'rgb(200, 200, 200)', fontSize: '0.9em', letterSpacing: '0.01em', display: 'flex', justifyContent: 'space-between' }}>
                                     Useful Youtube Videos
                                 </Button>
                             </Stack>
@@ -163,7 +163,7 @@ const Layout = (props) => {
                                 <img src={'https://www.jsmastery.pro/_next/static/media/guides.6def5cfb.svg'} height={25} />
                                 <Button
                                     variant='text'
-                                    sx={{ textTransform: 'none', color: 'rgb(200, 200, 200)', fontSize: '0.9rem', letterSpacing: '0.01rem', display: 'flex', justifyContent: 'space-between' }}>
+                                    sx={{ textTransform: 'none', color: 'rgb(200, 200, 200)', fontSize: '0.9em', letterSpacing: '0.01em', display: 'flex', justifyContent: 'space-between' }}>
                                     Free Resources and Guide
                                 </Button>
                             </Stack>
@@ -182,7 +182,7 @@ const CourseGrid = () => {
     const { courses } = useSelector(state => state.course)
 
     return (
-        <Grid container justifyContent={'center'} spacing={8} p={8}>
+        <Grid container justifyContent={'center'} spacing={8} sx={{ p: { xs: 4, md: 8 } }}>
             {courses.map((course, index) => {
                 return (
                     <Grid item xs={12} md={6} justifyContent={'center'} >
@@ -221,10 +221,10 @@ const Application = (props) => {
                     <Stack sx={{ width: { xs: '100%', md: '50%' } }} >
                         <Fade left>
                             <Stack>
-                                <Typography variant='h1' color={text_color} fontWeight={700} fontSize={'5rem'} m={0}>
+                                <Typography variant='h1' color={text_color} fontWeight={700} sx={{ fontSize: { xs: '3.5em', sm: '5em' } }} m={0}>
                                     <span class="text-gradient">KnowleXpanse</span>
                                 </Typography>
-                                <Typography color={text_color} fontSize={'1.2rem'} my={2}>
+                                <Typography color={text_color} fontSize={'1.2em'} my={2}>
                                     Expand your knowledge with Comprehensive Course and Personalized Support.
                                 </Typography>
                                 <Button variant='contained' sx={{ width: 200, fontSize: '16px' }} >
@@ -244,19 +244,19 @@ const Application = (props) => {
                 </Box>
 
                 <Fade bottom>
-                    <Box color={text_color} py={2} sx={{ px: { xs: 3, md: 8 } }} fontSize={'1rem'}>
+                    <Box color={text_color} py={2} sx={{ px: { xs: 3, md: 8 } }} fontSize={'1em'}>
                         <ReactMarkdown>{header_body}</ReactMarkdown>
                     </Box>
                 </Fade>
                 <Box id='courses' display='flex' flexDirection={'column'} justifyContent={'center'} mt={4}>
                     <Fade bottom>
-                        <Typography variant='h1' color={text_color} fontWeight={700} fontSize={'3rem'} textAlign='center'>
-                            Comprehensice <span class="text-gradient">Courses</span><br />to Help You Become a <span class="text-gradient">Analog Engineer</span>
+                        <Typography variant='h1' color={text_color} fontWeight={700} fontSize={'4rem'} textAlign='center'>
+                            Comprehensive <span class="text-gradient">Course</span><br /> and  <span class="text-gradient">Personalized Guidance</span>
                         </Typography>
                     </Fade>
                     <CourseGrid />
                 </Box>
-                <Box color={text_color} px={2} py={1} fontSize={'1rem'} sx={{ backgroundColor: 'rgb(22,27,34)', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+                <Box color={text_color} px={2} py={1} fontSize={'1em'} sx={{ backgroundColor: 'rgb(22,27,34)', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
                     <ReactMarkdown>{footer_body}</ReactMarkdown>
                     <Box dispay='flex' flexDirection='row' justifyContent='flex-end' alignItems='center' >
                         Developed By <a href='https://www.linkedin.com/in/satyam-lohiya-536879229/' target={'_blank'} style={{ color: theme.palette.primary.main }}>Satyam Lohiya</a>
