@@ -7,7 +7,7 @@ import { designActions, saveDesign } from "../store/design-slice";
 import Header from './Header'
 import Footer from "./Footer";
 import Theme from "./Theme";
-import Application from "../root";
+import Application from "../pages/root/index";
 
 
 const Design = () => {
@@ -57,7 +57,8 @@ const Design = () => {
                     {tab === 'Theme' && <Theme />}
                 </Box>
                 <Box width='60%' overflow={'auto'}>
-                    <Application />
+                    {/* <Application /> */}
+                    <iframe width='100%' height='100%' src="/"></iframe>
                 </Box>
             </Stack>
             <Paper elevation={2}>

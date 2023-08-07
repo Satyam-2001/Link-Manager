@@ -1,4 +1,5 @@
 const express = require('express')
+const auth = require('../middleware/auth')
 const router = new express.Router()
 const Design = require("../models/Design")
 
@@ -14,7 +15,7 @@ router.get('/design', async (req, res) => {
     }
 })
 
-router.post('/design', async (req, res) => {
+router.post('/design', auth, async (req, res) => {
     try {
         await Design.deleteMany({})
         const design = new Design(req.body)

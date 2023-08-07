@@ -24,7 +24,6 @@ export async function uploadMedia(file) {
     const name = `${id}_${file.name}`
     const picUrl = BASE_IMG_URL + "CHAT/" + name
     const response = await ReactS3Client.uploadFile(file, name)
-    console.log(response)
     return picUrl
 }
 

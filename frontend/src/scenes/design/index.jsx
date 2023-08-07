@@ -10,7 +10,7 @@ const Description = () => {
 
   return (
     <Box display="flex" flexDirection="column" sx={{ height: '100vh' }}>
-      <Topbar title="DESIGN"/>
+      <Topbar title="Design"/>
       <Box flex={1} overflow={'auto'}>
         <Design />
       </Box>

@@ -13,6 +13,7 @@ import ListIcon from '@mui/icons-material/List';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import BrushIcon from '@mui/icons-material/Brush';
+import AssignmentIcon from '@mui/icons-material/Assignment';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -119,9 +120,16 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
             <Item
-              title="Courses List"
+              title="Courses"
               to="/dashboard/courses"
               icon={<DashboardIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Testimonials"
+              to="/dashboard/testimonials"
+              icon={<AssignmentIcon />}
               selected={selected}
               setSelected={setSelected}
             />

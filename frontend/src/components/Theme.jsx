@@ -1,20 +1,13 @@
-import React, { useState } from 'react'
-import { Accordion, AccordionDetails, AccordionSummary, Divider, Box, Button, ButtonGroup, IconButton, Paper, Stack, ToggleButton, ToggleButtonGroup, Typography, useTheme } from "@mui/material";
-import MDEditor from './MDEditor';
-import { tokens } from "../theme";
+import React from 'react'
+import { Stack, Typography } from "@mui/material";
 import DesignTabLayout from '../ui/DesignTabLayout';
-import CustomizeAccordion from '../ui/CustomizeAccordion';
 import { MuiColorInput } from 'mui-color-input'
 import { useDispatch, useSelector } from "react-redux";
-import designSlice, { designActions } from '../store/design-slice';
+import { designActions } from '../store/design-slice';
 
 
 
 const Theme = (props) => {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
-
-    const [fontColor, setFontColor] = useState('white')
 
     const dispatch = useDispatch()
 

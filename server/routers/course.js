@@ -1,4 +1,5 @@
 const express = require('express')
+const auth = require('../middleware/auth')
 const router = new express.Router()
 const Course = require("../models/Course")
 
@@ -14,7 +15,7 @@ router.get('/course', async (req, res) => {
     }
 })
 
-router.post('/course', async (req, res) => {
+router.post('/course', auth, async (req, res) => {
     try {
         const index = await Course.countDocuments({});
         const course = new Course({ index, ...req.body })
@@ -24,11 +25,9 @@ router.post('/course', async (req, res) => {
     catch (e) {
         res.status(400).send(e)
     }
-}, (error, req, res, next) => {
-    res.status(400).send({ error: error.message })
 })
 
-router.post('/orderup', async (req, res) => {
+router.post('/course/orderup', auth, async (req, res) => {
     try {
         const course_1 = await Course.findOne({ _id: req.body.id })
         const index = course_1.index
@@ -49,7 +48,7 @@ router.post('/orderup', async (req, res) => {
     }
 })
 
-router.post('/orderdown', async (req, res) => {
+router.post('/course/orderdown', auth, async (req, res) => {
     try {
         const course_1 = await Course.findOne({ _id: req.body.id })
         const index = course_1.index
@@ -69,7 +68,7 @@ router.post('/orderdown', async (req, res) => {
     }
 })
 
-router.patch('/course', async (req, res) => {
+router.patch('/course', auth, async (req, res) => {
 
     try {
         const course = await Course.findByIdAndUpdate(req.body._id, req.body)
@@ -81,7 +80,7 @@ router.patch('/course', async (req, res) => {
     }
 })
 
-router.delete('/course/:id', async (req, res) => {
+router.delete('/course/:id', auth, async (req, res) => {
     try {
         await Course.deleteOne({ _id: req.params.id })
         res.send()
