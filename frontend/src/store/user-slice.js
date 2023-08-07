@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { callAPI } from '../services/callAPI';
 
+
 const initialState = {
     username: '',
     status: 'pending'
@@ -52,10 +53,10 @@ export const logout = () => {
     return async (dispatch) => {
         dispatch(userActions.setStatus('pending'))
         try {
-            await callAPI('post', 'user/logout')
-            dispatch(userActions.setStatus('logout'))
             localStorage.removeItem('token')
             localStorage.removeItem('user')
+            dispatch(userActions.setStatus('logout'))
+            await callAPI('post', 'user/logout')
         } catch (e) {
             dispatch(userActions.setStatus('logout'))
             localStorage.removeItem('token')

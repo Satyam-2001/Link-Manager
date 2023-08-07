@@ -2,16 +2,14 @@ import { Stack, Box, Typography, OutlinedInput, InputAdornment, IconButton, Form
 import React, { useEffect, useState } from 'react'
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import { getUser, login } from '../../store/user-slice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { toast } from 'react-toastify';
+
 
 
 const Login = (props) => {
@@ -27,7 +25,11 @@ const Login = (props) => {
         dispatch(getUser())
     }, [])
 
-    console.log(status)
+    useEffect(() => {
+        if (status === 'login') {
+            toast.success('Login Succesfully')
+        }
+    }, [status])
 
     const handleSubmit = (event) => {
         event.preventDefault();

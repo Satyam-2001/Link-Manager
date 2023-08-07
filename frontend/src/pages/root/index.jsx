@@ -4,7 +4,6 @@ import { Box, Button, Stack, Typography, CardActionArea, CardActions, Popover, u
 import ReactMarkdown from 'react-markdown'
 // import emarkGfm from 'emark-gfm'
 import Grid from '@mui/material/Grid';
-import MarkdownIt from 'markdown-it';
 import Fade from 'react-reveal/Fade';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -12,9 +11,8 @@ import CardMedia from '@mui/material/CardMedia';
 import ReactCardFlip from 'react-card-flip';
 import { tokens } from "../../theme";
 import CircularProgress from '@mui/material/CircularProgress';
-import SearchOffIcon from '@mui/icons-material/SearchOff';
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { ErrorOccured } from '../../ui/StaticMessage';
+import Coverflow from 'react-coverflow'
 
 
 const CustomCard = ({ course }) => {
@@ -99,10 +97,10 @@ const TestimonialCard = ({ testimonial }) => {
                 />
                 <CardContent sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column', width: '100%' }}>
                     <Typography gutterBottom variant="h5" component="div">
-                        {name}
+                        <span class="text-gradient">{name}</span>
                     </Typography>
                     <Typography gutterBottom variant="h6">
-                        <span class="text-gradient">{designation}</span>
+                        {designation}
                     </Typography>
                     <Typography variant="body2" fontSize={'0.65rem'} sx={{ color: "rgb(230, 230, 230)" }}>
                         {content}
@@ -125,20 +123,20 @@ const TestimonialsSmallCardContainer = ({ testimonials }) => {
 };
 
 
-// const TestimonialsLargeCardContainer = ({ testimonials }) => {
-//     return (
-//         <Coverflow
-//             width={'100%'}
-//             height={480}
-//             displayQuantityOfSide={2}
-//             navigation={false}
-//             enableHeading={false}
-//         >
-//             {testimonials.map(testimonial => {
-//                 return <TestimonialCard key={testimonial._id} testimonial={testimonial} />
-//             })}
-//         </Coverflow>)
-// };
+const TestimonialsLargeCardContainer = ({ testimonials }) => {
+    return (
+        <Coverflow
+            width={'100%'}
+            height={480}
+            displayQuantityOfSide={2}
+            navigation={false}
+            enableHeading={false}
+        >
+            {testimonials.map(testimonial => {
+                return <TestimonialCard key={testimonial._id} testimonial={testimonial} />
+            })}
+        </Coverflow>)
+};
 
 const Testimonials = () => {
     const { background_color, text_color, footer_body, header_image, header_body } = useSelector(state => state.design.current_design)
@@ -148,8 +146,11 @@ const Testimonials = () => {
         <Typography variant='h1' color={text_color} fontWeight={700} fontSize={'4rem'} textAlign='center'>
             <span class="text-gradient">Testimonials</span>
         </Typography>
-        <Box sx={{ mx: { xs: 3, md: 8 }, my: { xs: 2, md: 5 }, overflow: 'auto' }} >
+        <Box sx={{ mx: { xs: 3, md: 8 }, my: { xs: 2, md: 5 }, display: { xs: 'block', md: 'none' }, overflow: 'auto' }} >
             <TestimonialsSmallCardContainer testimonials={testimonials} />
+        </Box>
+        <Box sx={{ mx: { xs: 3, md: 8 }, my: { xs: 2, md: 5 }, display: { xs: 'none', md: 'block' }, overflow: 'auto' }} >
+            <TestimonialsLargeCardContainer testimonials={testimonials} />
         </Box>
     </Box>)
 
